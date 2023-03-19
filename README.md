@@ -1,5 +1,5 @@
 # tsoha
-Tietokantasovellus harjoitustyö
+Ravintolasovellus
 
 Sovelluksella voidaan, joko etsiä hakusanalla tai tarkastella kartasta lähellä olevia ravintoloita ja niiden arvosteluita. Sovellusta voidaan käyttää joko normaalina käyttäjänä tai ylläpitäjänä.
 
