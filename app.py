@@ -12,7 +12,6 @@ db = SQLAlchemy(app)
 
 @app.route("/")
 def index():
-    #print(generate_password_hash('ok123'))
     sql = "SELECT id, name FROM restaurants"
     result = db.session.execute(text(sql))
     restaurants = result.fetchall()
