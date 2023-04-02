@@ -64,11 +64,15 @@ def review(id):
 
 @app.route("/add_review", methods=["POST"])
 def add_review():
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(text(sql), {"username":session["username"]})
+    user_id = result.fetchone()
+
     rating_id = request.form["id"]
     rating = request.form["rating"]
     message = request.form["message"]
-    sql = "INSERT INTO reviews (restaurant_id, user_id, rating, content, created_at) VALUES (:rating_id, 1, :rating, :message, NOW())"
-    db.session.execute(text(sql), {"rating_id":rating_id, "rating":rating, "message":message})
+    sql = "INSERT INTO reviews (restaurant_id, user_id, username, rating, content, created_at) VALUES (:rating_id, :user_id, :username, :rating, :message, NOW())"
+    db.session.execute(text(sql), {"rating_id":rating_id, "user_id":user_id.id, "username":session["username"], "rating":rating, "message":message})
     db.session.commit()
     return redirect("/view/" + str(rating_id))
     
@@ -79,7 +83,7 @@ def view(id):
     result = db.session.execute(text(sql), {"id":id})
     restaurant = result.fetchone()
 
-    sql = "SELECT rating, content, created_at FROM reviews WHERE restaurant_id=:id"
+    sql = "SELECT username, rating, content, created_at FROM reviews WHERE restaurant_id=:id" #change username to just id and search with that
     result = db.session.execute(text(sql), {"id":id})
     reviews = result.fetchall()
     return render_template("view.html", reviews=reviews, restaurant=restaurant)
