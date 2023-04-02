@@ -1,5 +1,5 @@
 {% if session.username %}
-<p>Olet kirjautunut nimellä {{ session.username }}</p>
+<p>Olet kirjautunut nimellä: {{ session.username }}</p>
 Ravintoloiden määrä: {{ count }}
 <hr>
 {% for restaurant in restaurants %}
