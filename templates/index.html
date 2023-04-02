@@ -2,7 +2,7 @@ Ravintoloiden määrä: {{ count }}
 <hr>
 {% for restaurant in restaurants %}
 {{ restaurant.name }} <br>
-<a href="/review/{{restaurant.id}}">Jätä arvostelu</a> |
-<a href="/view/{{restaurant.id}}">Katso arvostelut</a>
+<a href="/review/{{ restaurant.id }}">Jätä arvostelu</a> |
+<a href="/view/{{ restaurant.id }}">Katso arvostelut</a>
 <hr>
 {% endfor %}

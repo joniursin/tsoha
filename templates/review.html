@@ -1,1 +1,18 @@
-Jätä arvostelu
+Jätä arvostelu ravintolalle {{ restaurant.name }}
+<form action="/add_review" method="POST"> <br>
+Arvosana:
+<p>
+<input type="radio" name="rating" value="5"> 5
+<input type="radio" name="rating" value="4"> 4
+<input type="radio" name="rating" value="3"> 3
+<input type="radio" name="rating" value="2"> 2
+<input type="radio" name="rating" value="1"> 1
+<p>
+Teksti: <br>
+<textarea name="message" rows="3" cols="50"></textarea>
+<p>
+<input type="submit" value="Lähetä">
+<input type="hidden" name="id" value="{{ id }}">
+</form>
+<br>
+<a href="/">Takaisin</a>

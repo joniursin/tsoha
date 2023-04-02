@@ -1,1 +1,9 @@
-Katso arvostelut
+Ravintolan {{ restaurant.name }} arvostelut
+<hr>
+{% for review in reviews %}
+Arvosana: {{ review.rating }} <br>
+Teksti: {{ review.content }} <br>
+Julkaistu: {{ review.created_at }} <br>
+<hr>
+{% endfor %} <br>
+<a href="/">Takaisin</a>
