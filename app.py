@@ -41,14 +41,13 @@ def login():
     result = db.session.execute(text(sql), {"username":username})
     user = result.fetchone()    
     if not user:
-        print("invalid username")
-        return redirect("/")
+        return render_template("error.html", error="Invalid username")
     else:
         hash_value = user.password
     if check_password_hash(hash_value, password):
         session["username"] = username
     else:
-        print("invalid password")
+        return render_template("error.html", error="Invalid password")
     return redirect("/")
 
 @app.route("/logout")
