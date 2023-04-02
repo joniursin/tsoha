@@ -16,9 +16,9 @@ Sovelluksella voidaan, joko etsiä hakusanalla tai tarkastella kartasta lähell�
 
 ## Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
 
-DATABASE_URL=<tietokannan-paikallinen-osoite>
+DATABASE_URL=tietokannan-paikallinen-osoite
   
-SECRET_KEY=<salainen-avain>
+SECRET_KEY=salainen-avain
 
 ## Aktivoi seuraavaksi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komeinnoilla:
 
