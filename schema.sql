@@ -7,4 +7,3 @@ CREATE TABLE reviews (id SERIAL PRIMARY KEY, restaurant_id INTEGER REFERENCES re
 INSERT INTO restaurants (name) VALUES ('Dilber');
 INSERT INTO restaurants (name) VALUES ('King Kebab');
 INSERT INTO restaurants (name) VALUES ('Hesburger');
-INSERT INTO users (username, password, op_status) VALUES ('kalle123', 'pbkdf2:sha256:260000$R39gOQLbA9rEY3V8$6a62c79544143bb4a5afffcc2c0ac72bb9d65de1cf2d0f848d2f37727a68eef8', FALSE);
