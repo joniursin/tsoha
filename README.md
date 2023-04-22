@@ -43,3 +43,9 @@ $ psql < schema.sql
 ## Sovelluksen saa käynnistetty komennolla:
 
 $ flask run
+
+# Testaaminen
+
+Ylläpitäjä roolia voidaan testata käyttäen seuraavia tunnuksia
+Käyttäjänimi: admin
+Salasana: admin
