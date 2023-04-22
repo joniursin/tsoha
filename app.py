@@ -35,7 +35,7 @@ def add_review():
     rating_id = request.form["id"]
     rating = request.form["rating"]
     message = request.form["message"]
-    sql = "INSERT INTO reviews (restaurant_id, user_id, username, rating, content, created_at) VALUES (:rating_id, :user_id, :username, :rating, :message, NOW())"
+    sql = "INSERT INTO reviews (restaurant_id, user_id, username, rating, content, created_at, visible) VALUES (:rating_id, :user_id, :username, :rating, :message, NOW(), True)"
     db.session.execute(text(sql), {"rating_id":rating_id, "user_id":user_id.id, "username":session["username"], "rating":rating, "message":message})
     db.session.commit()
     return redirect("/view/" + str(rating_id))
@@ -47,7 +47,22 @@ def view(id):
     result = db.session.execute(text(sql), {"id":id})
     restaurant = result.fetchone()
 
-    sql = "SELECT username, rating, content, created_at FROM reviews WHERE restaurant_id=:id" #change username to just id and search with that
+    sql = "SELECT op_status FROM users WHERE username=:username"
+    result = db.session.execute(text(sql), {"username":session["username"]})
+    op_status = result.fetchone()[0]
+
+    sql = "SELECT id, username, rating, content, created_at, visible FROM reviews WHERE restaurant_id=:id" #change username to just id and search with that
     result = db.session.execute(text(sql), {"id":id})
     reviews = result.fetchall()
-    return render_template("view.html", reviews=reviews, restaurant=restaurant)
+    return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=op_status)
+    #return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=True) #debug
+
+@app.route("/remove", methods=["POST"])
+def remove():
+    id = request.form["id"]
+    sql = "UPDATE reviews SET visible = false WHERE id=:id"
+    db.session.execute(text(sql), {"id":id})
+    db.session.commit()
+
+    return redirect("/")
+
