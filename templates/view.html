@@ -1,10 +1,24 @@
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<title>Tsoha App</title>
+<div class="container">
 Ravintolan {{ restaurant.name }} arvostelut
 <hr>
 {% for review in reviews %}
+{% if review.visible %}
 Käyttäjän {{ review.username }} arvostelu: <br>
 Arvosana: {{ review.rating }} <br>
 Teksti: {{ review.content }} <br>
 Julkaistu: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }} <br>
+    {% if op_status %}
+    <form action="/remove" method="POST">
+        <input type="hidden" name="id" value="{{ review.id }}" />
+        <input type="submit" value="Poista arvostelu">
+    </form>
+    {% endif %}
 <hr>
+{% endif %}
 {% endfor %} <br>
 <a href="/">Takaisin</a>
+</div>
