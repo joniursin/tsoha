@@ -47,5 +47,7 @@ $ flask run
 # Testaaminen
 
 Ylläpitäjä roolia voidaan testata käyttäen seuraavia tunnuksia
+
 Käyttäjänimi: admin
+
 Salasana: admin
