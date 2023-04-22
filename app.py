@@ -10,50 +10,14 @@ app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
+import authentication
+
 @app.route("/")
 def index():
     sql = "SELECT id, name FROM restaurants"
     result = db.session.execute(text(sql))
     restaurants = result.fetchall()
     return render_template("index.html", count=len(restaurants), restaurants=restaurants)
-
-@app.route("/signup")
-def signup():
-    return render_template("signup.html")
-
-@app.route("/add_user", methods=["POST"])
-def add_user():
-    username = request.form["username"]
-    password = request.form["password"]
-
-    hash_value = generate_password_hash(password)
-    sql = "INSERT INTO users (username, password, op_status) VALUES (:username, :password, FALSE)"
-    db.session.execute(text(sql), {"username":username, "password":hash_value})
-    db.session.commit()
-    return redirect("/")
-
-@app.route("/login", methods=["POST"])
-def login():
-    username = request.form["username"]
-    password = request.form["password"]
-
-    sql = "SELECT id, password FROM users WHERE username=:username"
-    result = db.session.execute(text(sql), {"username":username})
-    user = result.fetchone()    
-    if not user:
-        return render_template("error.html", error="Invalid username")
-    else:
-        hash_value = user.password
-    if check_password_hash(hash_value, password):
-        session["username"] = username
-    else:
-        return render_template("error.html", error="Invalid password")
-    return redirect("/")
-
-@app.route("/logout")
-def logout():
-    del session["username"]
-    return redirect("/")
 
 @app.route("/review/<int:id>")
 def review(id):
