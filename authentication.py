@@ -14,6 +14,12 @@ def add_user():
     username = request.form["username"]
     password = request.form["password"]
 
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(text(sql), {"username":username})
+    user = result.fetchone() 
+    if user:
+        return render_template("error.html", error="Username already exists")
+
     hash_value = generate_password_hash(password)
     sql = "INSERT INTO users (username, password, op_status) VALUES (:username, :password, FALSE)"
     db.session.execute(text(sql), {"username":username, "password":hash_value})
