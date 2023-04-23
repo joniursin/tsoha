@@ -16,8 +16,8 @@ import like
 def admin_status():
     sql = "SELECT op_status FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":session["username"]})
-    op_status = result.fetchone()[0]
-    if op_status:
+    op_status = result.fetchone()
+    if op_status[0]:
         return True
     return False
 
