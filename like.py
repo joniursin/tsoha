@@ -25,7 +25,6 @@ def like():
     sql = "INSERT INTO likes (review_id, user_id) VALUES (:review_id, :user_id)"
     db.session.execute(text(sql), {"review_id":review_id, "user_id":user_id})
     db.session.commit()
-    print("tykätty")
     return redirect("/")
 
 @app.route("/remove_like", methods=["POST"])
@@ -36,5 +35,4 @@ def remove_like():
     sql = "DELETE FROM likes WHERE review_id=:review_id AND user_id=:user_id"
     db.session.execute(text(sql), {"review_id":review_id, "user_id":user_id})
     db.session.commit()
-    print("poistettu tykkäys")
     return redirect("/")
