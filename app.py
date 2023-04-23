@@ -11,6 +11,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
 import authentication
+import like
 
 @app.route("/")
 def index():
@@ -47,14 +48,14 @@ def view(id):
     result = db.session.execute(text(sql), {"id":id})
     restaurant = result.fetchone()
 
-    sql = "SELECT op_status FROM users WHERE username=:username"
+    sql = "SELECT id, op_status FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":session["username"]})
-    op_status = result.fetchone()[0]
+    user = result.fetchone()
 
     sql = "SELECT id, username, rating, content, created_at, visible FROM reviews WHERE restaurant_id=:id" #change username to just id and search with that
     result = db.session.execute(text(sql), {"id":id})
     reviews = result.fetchall()
-    return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=op_status)
+    return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=user[1], user_id=user[0], has_liked=like.has_liked, get_likes=like.get_likes)
     #return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=True) #debug
 
 @app.route("/remove", methods=["POST"])
