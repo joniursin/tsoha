@@ -5,6 +5,8 @@ CREATE TABLE restaurants (id SERIAL PRIMARY KEY, name TEXT);
 CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT, password TEXT, op_status BOOLEAN);
 CREATE TABLE reviews (id SERIAL PRIMARY KEY, restaurant_id INTEGER REFERENCES restaurants, user_id INTEGER REFERENCES users, username TEXT, rating INT, content TEXT, created_at TIMESTAMP, visible BOOLEAN);
 CREATE TABLE likes (id SERIAL PRIMARY KEY, review_id INTEGER REFERENCES reviews, user_id INTEGER REFERENCES users);
+CREATE TABLE groups (id SERIAL PRIMARY KEY, group_name TEXT, description TEXT);
+CREATE TABLE group_members (id SERIAL PRIMARY KEY, group_id INTEGER REFERENCES groups, restaurant_id INTEGER REFERENCES restaurants);
 INSERT INTO restaurants (name) VALUES ('Unicafe');
 INSERT INTO restaurants (name) VALUES ('King Kebab');
 INSERT INTO restaurants (name) VALUES ('Hesburger');
