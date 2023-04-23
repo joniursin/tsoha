@@ -7,10 +7,24 @@ Ravintolan {{ restaurant.name }} arvostelut
 <hr>
 {% for review in reviews %}
 {% if review.visible %}
-Käyttäjän {{ review.username }} arvostelu: <br>
+Käyttäjän "{{ review.username }}" arvostelu: <br>
 Arvosana: {{ review.rating }} <br>
 Teksti: {{ review.content }} <br>
 Julkaistu: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }} <br>
+Tykkäykset: {{ get_likes(review.id) }}
+{% if not has_liked(review.id, user_id) %}
+<form action="/like" method="POST">
+    <input type="hidden" name="review_id" value="{{ review.id }}" />
+    <input type="hidden" name="user_id" value="{{ user_id }}" />
+    <input type="submit" value="Tykkää arvostelusta">
+</form>
+{% else %}
+<form action="/remove_like" method="POST">
+    <input type="hidden" name="review_id" value="{{ review.id }}" />
+    <input type="hidden" name="user_id" value="{{ user_id }}" />
+    <input type="submit" value="Poista tykkäys">
+</form>
+{% endif %}
     {% if op_status %}
     <form action="/remove" method="POST">
         <input type="hidden" name="id" value="{{ review.id }}" />
