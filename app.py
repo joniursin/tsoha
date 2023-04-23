@@ -13,12 +13,20 @@ db = SQLAlchemy(app)
 import authentication
 import like
 
+def admin_status():
+    sql = "SELECT op_status FROM users WHERE username=:username"
+    result = db.session.execute(text(sql), {"username":session["username"]})
+    op_status = result.fetchone()[0]
+    if op_status:
+        return True
+    return False
+
 @app.route("/")
 def index():
     sql = "SELECT id, name FROM restaurants"
     result = db.session.execute(text(sql))
     restaurants = result.fetchall()
-    return render_template("index.html", count=len(restaurants), restaurants=restaurants)
+    return render_template("index.html", count=len(restaurants), restaurants=restaurants, admin_status=admin_status)
 
 @app.route("/review/<int:id>")
 def review(id):
@@ -66,4 +74,17 @@ def remove():
     db.session.commit()
 
     return redirect("/")
+
+@app.route("/new_restaurant")
+def new_restaurant():
+    return render_template("new-restaurant.html")
+
+@app.route("/add_restaurant", methods=["POST"])
+def add_restaurant():
+    name = request.form["name"]
+    sql = "INSERT INTO restaurants (name) VALUES (:name)"
+    db.session.execute(text(sql), {"name":name})
+    db.session.commit()
+    return redirect("/")
+
 

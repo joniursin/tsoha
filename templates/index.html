@@ -7,6 +7,10 @@
 <p>Olet kirjautunut nimellä: {{ session.username }}</p>
 Ravintoloiden määrä: {{ count }}
 <hr>
+{% if admin_status() %}
+<a href="/new_restaurant">Lisää uusi ravintola</a>
+{% endif %}
+<hr>
 {% for restaurant in restaurants %}
 {{ restaurant.name }} <br>
 <a href="/review/{{ restaurant.id }}">Jätä arvostelu</a> |
