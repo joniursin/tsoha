@@ -62,9 +62,10 @@ def view(id):
     result = db.session.execute(text(sql), {"username":session["username"]})
     user = result.fetchone()
 
-    sql = "SELECT id, username, rating, content, created_at, visible FROM reviews WHERE restaurant_id=:id" #change username to just id and search with that
+    sql = "SELECT r.id, r.username, r.rating, r.content, r.created_at, r.visible, COUNT(l.id) FROM reviews r LEFT JOIN likes l ON r.id=l.review_id WHERE restaurant_id=:id GROUP BY r.id, r.username, r.rating, r.content, r.created_at, r.visible ORDER BY COUNT(l.id) DESC" #change username to just id and search with that
     result = db.session.execute(text(sql), {"id":id})
     reviews = result.fetchall()
+
     return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=user[1], user_id=user[0], has_liked=like.has_liked, get_likes=like.get_likes)
     #return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=True) #debug
 
