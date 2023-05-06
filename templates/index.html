@@ -1,7 +1,5 @@
-<!doctype html>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<title>Tsoha App</title>
+{% extends "layout.html" %}
+{% block content %}
 <div class="container">
 {% if session.username %}
 <p>Olet kirjautunut nimellä: {{ session.username }}</p>
@@ -38,3 +36,4 @@ Ravintoloiden määrä: {{ count }}
 </div>
 {% endif %}
 </div>
+{% endblock %} 
