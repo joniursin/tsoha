@@ -79,7 +79,7 @@ def remove():
 
 @app.route("/new_restaurant")
 def new_restaurant():
-    return render_template("new-restaurant.html")
+    return render_template("new-restaurant.html", admin_status=admin_status)
 
 @app.route("/add_restaurant", methods=["POST"])
 def add_restaurant():

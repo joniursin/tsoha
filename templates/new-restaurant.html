@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if admin_status() %}
 <div class="container">
 Lisää uusi ravintola
 <form action="/add_restaurant" method="POST"> <br>
@@ -11,4 +12,8 @@ Nimi: <br>
 <br>
 <a href="/">Takaisin</a>
 </div>
+{% else %}
+<p>Ei oikeuksia</p>
+<a href="/">Takaisin</a>
+{% endif %}
 {% endblock %}
