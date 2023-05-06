@@ -18,7 +18,7 @@ def add_user():
     result = db.session.execute(text(sql), {"username":username})
     user = result.fetchone() 
     if user:
-        return render_template("error.html", error="Username already exists")
+        return render_template("error.html", error="Käyttäjänimi on jo olemassa!")
 
     hash_value = generate_password_hash(password)
     sql = "INSERT INTO users (username, password, op_status) VALUES (:username, :password, FALSE)"
@@ -35,13 +35,13 @@ def login():
     result = db.session.execute(text(sql), {"username":username})
     user = result.fetchone()    
     if not user:
-        return render_template("error.html", error="Invalid username")
+        return render_template("error.html", error="Käyttäjänimeä ei ole olemassa")
     else:
         hash_value = user.password
     if check_password_hash(hash_value, password):
         session["username"] = username
     else:
-        return render_template("error.html", error="Invalid password")
+        return render_template("error.html", error="Väärä salasana")
     return redirect("/")
 
 @app.route("/logout")
