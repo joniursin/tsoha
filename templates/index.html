@@ -19,6 +19,7 @@ Ravintoloiden määrä: {{ count }}
 {% endfor %}
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
+<div class="col-6"><h1>Kirjaudu sisään ravintolasovellukseen</h1></div>
 <form action="/login" method="POST">
     <div class="form-group col-6">
         <label for="username">Tunnus</label>
