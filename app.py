@@ -40,10 +40,13 @@ def add_review():
     sql = "SELECT id FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":session["username"]})
     user_id = result.fetchone()
-
-    rating_id = request.form["id"]
-    rating = request.form["rating"]
-    message = request.form["message"]
+    try:
+        rating_id = request.form["id"]
+        rating = request.form["rating"]
+        message = request.form["message"]
+    except:
+        return render_template("error.html", error="Virheellinen arvostelu jätä ainakin arvosana!")
+    
     sql = "INSERT INTO reviews (restaurant_id, user_id, username, rating, content, created_at, visible) VALUES (:rating_id, :user_id, :username, :rating, :message, NOW(), True)"
     db.session.execute(text(sql), {"rating_id":rating_id, "user_id":user_id.id, "username":session["username"], "rating":rating, "message":message})
     db.session.commit()
