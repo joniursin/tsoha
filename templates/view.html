@@ -14,12 +14,14 @@ Tykkäykset: {{ get_likes(review.id) }}
 <form action="/like" method="POST">
     <input type="hidden" name="review_id" value="{{ review.id }}" />
     <input type="hidden" name="user_id" value="{{ user_id }}" />
+    <input type="hidden" name="restaurant_name" value="{{ restaurant.name }}" />
     <input type="submit" value="Tykkää arvostelusta">
 </form>
 {% else %}
 <form action="/remove_like" method="POST">
     <input type="hidden" name="review_id" value="{{ review.id }}" />
     <input type="hidden" name="user_id" value="{{ user_id }}" />
+    <input type="hidden" name="restaurant_name" value="{{ restaurant.name }}" />
     <input type="submit" value="Poista tykkäys">
 </form>
 {% endif %}
