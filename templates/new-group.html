@@ -13,6 +13,7 @@ Valitse ryhmään lisättävät ravintolat: <br>
 <input type="checkbox" name="restaurant_id" value="{{ restaurant.id }}"> <br>
 {% endfor %}
 <input type="submit" value="Lähetä">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <a href="/">Takaisin</a>
 </div>

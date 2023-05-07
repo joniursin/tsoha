@@ -8,6 +8,7 @@ Nimi: <br>
 <textarea name="name" rows="1" cols="50"></textarea>
 <p>
 <input type="submit" value="Lähetä">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <br>
 <a href="/">Takaisin</a>

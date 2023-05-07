@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from os import getenv
@@ -36,6 +36,8 @@ def review(id):
 
 @app.route("/add_review", methods=["POST"])
 def add_review():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     sql = "SELECT id FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":session["username"]})
     user_id = result.fetchone()
@@ -84,7 +86,12 @@ def new_restaurant():
 
 @app.route("/add_restaurant", methods=["POST"])
 def add_restaurant():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     name = request.form["name"]
+    if name == "":
+        return render_template("error.html", error="Nimeä ravintolalle ei annettu!")
+    
     sql = "INSERT INTO restaurants (name) VALUES (:name)"
     db.session.execute(text(sql), {"name":name})
     db.session.commit()
@@ -99,9 +106,10 @@ def new_group():
 
 @app.route("/add_group", methods=["POST"])
 def add_group():
-    try:
-        group_name = request.form["name"]
-    except:
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    group_name = request.form["name"]
+    if group_name == "":
         return render_template("error.html", error="Nimeä ryhmälle ei annettu!")
     
     chosen_restaurants = request.form.getlist("restaurant_id")
