@@ -30,3 +30,21 @@ def add_group():
 
     db.session.commit()
     return redirect("/")
+
+@app.route("/groups")
+def groups():
+    sql = "SELECT id, group_name FROM groups"
+    result = db.session.execute(text(sql))
+    groups = result.fetchall()
+    return render_template("groups.html", count=len(groups), groups=groups, admin_status=admin_status)
+
+@app.route("/view_group/<int:id>")
+def view_group(id):
+    # CREATE TABLE group_members (id SERIAL PRIMARY KEY, group_id INTEGER REFERENCES groups, 
+    # restaurant_id INTEGER REFERENCES restaurants);
+
+    sql = "SELECT r.id, r.name FROM group_members g JOIN restaurants r ON g.restaurant_id=r.id WHERE group_id=:id"
+    result = db.session.execute(text(sql), {"id":id})
+    restaurants = result.fetchall()
+    print(restaurants)
+    return render_template("view-group.html", id=id, restaurants=restaurants)

@@ -6,15 +6,19 @@
 Ravintoloiden määrä sovelluksessa: {{ count }}
 <hr>
 {% if admin_status() %}
-<a href="/new_group">Luo uusi ryhmä</a> |
-<a href="/new_restaurant">Lisää uusi ravintola</a>
-<hr>
+    <a href="/new_group">Luo uusi ryhmä</a> |
+    <a href="/new_restaurant">Lisää uusi ravintola</a>
+    <hr>
 {% endif %}
-{% for restaurant in restaurants %}
-{{ restaurant.name }} <br>
-<a href="/review/{{ restaurant.id }}">Jätä arvostelu</a> |
-<a href="/view/{{ restaurant.id }}">Katso arvostelut</a>
+<a href="/groups">Katso ryhmät</a>
 <hr>
+Ravintolat:
+<hr>
+{% for restaurant in restaurants %}
+    {{ restaurant.name }} <br>
+    <a href="/review/{{ restaurant.id }}">Jätä arvostelu</a> |
+    <a href="/view/{{ restaurant.id }}">Katso arvostelut</a>
+    <hr>
 {% endfor %}
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
