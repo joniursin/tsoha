@@ -12,20 +12,26 @@ Sovelluksella voidaan, joko etsiä hakusanalla tai tarkastella kartasta lähell�
 - Sovelluksessa on myös ylläpitäjä rooli, jolla voidaan poistaa epäsopivia arvosteluja.
 - Ylläpitäjä myös pitää huolen uusien ravintoloiden lisää- ja poistamisesta.
 
-# Nykyinen tilanne
+# Lopullinen tilanne
 
-- Sovellukseen pystyy luomaan tilin ja siten kirjautua sisään
-- Sovellus tarkistaa ovatko kirjautumistiedot oikeat
-- Sovelluksessa voidaan nähdä sinne valmiiksi laitetetut ravintolat
-- Näille ravintoloille voidaan joko jättää käyttäjällä arvostelu tai katsoa muiden arvosteluja
-- Arvostelu tallentaa käyttäjän nimien, arvion (1-5), tekstin sekä julkaisu kohdan tietokantaan
-- Sovelluksesta voidaan kirjautua ulos
+### Kirjautuminen
 
-- Sovelluksen ulkonäköä parannettu bootstrapin avulla
-- Sovellukseen voidaan kirjautua valmiiksi luodulla ylläpitäjä roolilla
-- Ylläpitäjä pystyy lisäämään uusia ravintoloita sovelluksen kautta, sekä poistamaan muiden laittamia arvosteluja
-- Käyttäjät pystyvät jättämään tykkäyksiä arvosteluilla ja poistamaan niitä
-- Sovellus tarkistaa ettei voi olla kahta käyttäjää samalla nimellä
+- Sovellukseen voidaan luoda tunnus, jonka avulla siihen voidaan kirjautua sisään
+- On myös mahdollista kirjautua ylläpitäjä käyttäjällä, joka mahdollistaa enemmän ominaisuuksia kuin perus käyttäjällä
+
+## Käyttäminen (perus käyttäjä)
+
+- Käyttäjä näkee kaikki tietokantaa lisätyt ravintolat ja voi antaa niille joko arvostelun tai katsoa kaikki ravintolan arvostelut
+- Käyttäjä voi tykätä jokaisesta arvostelusta kerran, jolloin se nousee tykkäysten perusteella ylemmäksi
+- Käyttäjä voi myös poistaa tykkäyksensä
+- Käyttäjä voi myös katsoa ylläpitäjän tekemiä ravintola ryhmiä ja katsoa mitkä ravintolat niihin kuuluu
+
+## Ylläpitäjä oiminaisuudet
+
+- Ylläpitäjä voi lisätä sovelluksesta uusia ravintoloita, sekä tehdä näistä ryhmiä
+- Ylläpitäjä voi poistaa ravintoloita, jolloin ne eivät näe sovelluksessa.
+- Ylläpitä voi poistaa epäsopivia arvosteluita
+
 # Käynnistysohjeet
 
 ## Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
