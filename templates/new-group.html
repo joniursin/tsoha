@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if admin_status() %}
+<div class="container">
+Luo uusi ryhmä
+<form action="/add_group" method="POST"> <br>
+Ryhmän nimi: <br>
+<textarea name="name" rows="1" cols="50"></textarea>
+<p>
+Valitse ryhmään lisättävät ravintolat: <br>
+{% for restaurant in restaurants %}
+{{ restaurant.name }}
+<input type="checkbox" name="restaurant_id" value="{{ restaurant.id }}"> <br>
+{% endfor %}
+<input type="submit" value="Lähetä">
+</form>
+<a href="/">Takaisin</a>
+</div>
+{% else %}
+<p>Ei oikeuksia</p>
+<a href="/">Takaisin</a>
+{% endif %}
+{% endblock %}
