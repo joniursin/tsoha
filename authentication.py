@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
+import secrets
 
 @app.route("/signup")
 def signup():
@@ -40,6 +41,7 @@ def login():
         hash_value = user.password
     if check_password_hash(hash_value, password):
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
     else:
         return render_template("error.html", error="Väärä salasana")
     return redirect("/")
@@ -47,4 +49,5 @@ def login():
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["csrf_token"]
     return redirect("/")
