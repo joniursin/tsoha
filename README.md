@@ -1,7 +1,6 @@
-# tsoha
-Ravintolasovellus
+# Ravintolasovellus
 
-Sovelluksella voidaan, joko etsiä hakusanalla tai tarkastella kartasta lähellä olevia ravintoloita ja niiden arvosteluita. Sovellusta voidaan käyttää joko normaalina käyttäjänä tai ylläpitäjänä.
+Sovelluksella voidaan, tarkastella ravintoloita ja niiden arvosteluita. Sovellusta voidaan käyttää joko normaalina käyttäjänä tai ylläpitäjänä.
 
 - Sovelluksella näkee tietoja ravintoloista ja niihin jätetyistä arvosteluista.
 - Sovellukseen pystyy luomaan tunnuksen.
