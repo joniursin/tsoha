@@ -1,8 +1,8 @@
+from os import getenv
 from flask import Flask
 from flask import redirect, render_template, request, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
-from os import getenv
 
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
@@ -52,12 +52,11 @@ def add_review():
         message = request.form["message"]
     except:
         return render_template("error.html", error="Virheellinen arvostelu jätä ainakin arvosana!")
-    
+
     sql = "INSERT INTO reviews (restaurant_id, user_id, username, rating, content, created_at, visible) VALUES (:rating_id, :user_id, :username, :rating, :message, NOW(), True)"
     db.session.execute(text(sql), {"rating_id":rating_id, "user_id":user_id.id, "username":session["username"], "rating":rating, "message":message})
     db.session.commit()
     return redirect("/view/" + str(rating_id))
-    
 
 @app.route("/view/<int:id>")
 def view(id):
@@ -108,17 +107,15 @@ def add_restaurant():
     name = request.form["name"]
     if name == "":
         return render_template("error.html", error="Nimeä ravintolalle ei annettu!")
-    
+
     sql = "SELECT name FROM restaurants WHERE name=:name"
     result = db.session.execute(text(sql), {"name":name})
     name_exists = result.fetchall()
     print(name_exists)
     if name_exists:
         return render_template("error.html", error="Ravintola on jo olemassa!")
-    
+
     sql = "INSERT INTO restaurants (name, visible) VALUES (:name, true)"
     db.session.execute(text(sql), {"name":name})
     db.session.commit()
     return redirect("/")
-
-

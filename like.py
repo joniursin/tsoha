@@ -1,8 +1,6 @@
-from app import app, db
-from flask import Flask
-from flask import redirect, render_template, request, session, abort
-from flask_sqlalchemy import SQLAlchemy
+from flask import redirect, request, session, abort
 from sqlalchemy.sql import text
+from app import app, db
 
 def has_liked(review_id, user_id):
     sql = "SELECT review_id FROM likes WHERE review_id=:review_id AND user_id=:user_id"

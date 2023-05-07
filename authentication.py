@@ -1,10 +1,8 @@
-from app import app, db
-from flask import Flask
+import secrets
 from flask import redirect, render_template, request, session
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
-import secrets
+from app import app, db
 
 @app.route("/signup")
 def signup():
@@ -17,7 +15,7 @@ def add_user():
 
     sql = "SELECT id FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":username})
-    user = result.fetchone() 
+    user = result.fetchone()
     if user:
         return render_template("error.html", error="Käyttäjänimi on jo olemassa!")
 
@@ -34,7 +32,7 @@ def login():
 
     sql = "SELECT id, password FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":username})
-    user = result.fetchone()    
+    user = result.fetchone()
     if not user:
         return render_template("error.html", error="Käyttäjänimeä ei ole olemassa")
     else:
