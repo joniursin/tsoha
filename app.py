@@ -91,7 +91,6 @@ def remove_review():
 def remove_restaurant():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
-    print("test")
     id = request.form["id"]
     sql = "UPDATE restaurants SET visible = false WHERE id=:id"
     db.session.execute(text(sql), {"id":id})

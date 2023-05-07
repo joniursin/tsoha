@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 
 @app.route("/new_group")
 def new_group():
-    sql = "SELECT id, name FROM restaurants"
+    sql = "SELECT id, name FROM restaurants WHERE visible=true"
     result = db.session.execute(text(sql))
     restaurants = result.fetchall()
     return render_template("new-group.html", admin_status=admin_status, restaurants=restaurants)
@@ -44,7 +44,7 @@ def view_group(id):
     result = db.session.execute(text(sql), {"id":id})
     group_name = result.fetchone()[0]
 
-    sql = "SELECT r.id, r.name FROM group_members g JOIN restaurants r ON g.restaurant_id=r.id WHERE group_id=:id"
+    sql = "SELECT r.id, r.name FROM group_members g JOIN restaurants r ON g.restaurant_id=r.id WHERE group_id=:id AND r.visible=true"
     result = db.session.execute(text(sql), {"id":id})
     restaurants = result.fetchall()
     return render_template("view-group.html", id=id, restaurants=restaurants, group_name=group_name)
