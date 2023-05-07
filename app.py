@@ -111,7 +111,6 @@ def add_restaurant():
     sql = "SELECT name FROM restaurants WHERE name=:name"
     result = db.session.execute(text(sql), {"name":name})
     name_exists = result.fetchall()
-    print(name_exists)
     if name_exists:
         return render_template("error.html", error="Ravintola on jo olemassa!")
 
