@@ -74,7 +74,6 @@ def view(id):
     reviews = result.fetchall()
 
     return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=user[1], user_id=user[0], has_liked=like.has_liked, get_likes=like.get_likes)
-    #return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=True) #debug
 
 @app.route("/remove_review", methods=["POST"])
 def remove_review():
