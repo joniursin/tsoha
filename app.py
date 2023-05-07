@@ -16,8 +16,11 @@ def admin_status():
     sql = "SELECT op_status FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":session["username"]})
     op_status = result.fetchone()
-    if op_status[0]:
-        return True
+    try:
+        if op_status[0]:
+            return True
+    except:
+        return False
     return False
 
 import group
