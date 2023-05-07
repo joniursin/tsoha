@@ -1,6 +1,6 @@
 from app import app, db
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 
@@ -19,6 +19,8 @@ def get_likes(review_id):
 
 @app.route("/like", methods=["POST"])
 def like():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     review_id = request.form["review_id"]
     user_id = request.form["user_id"]
     restaurant_name = request.form["restaurant_name"]
@@ -35,6 +37,8 @@ def like():
 
 @app.route("/remove_like", methods=["POST"])
 def remove_like():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     review_id = request.form["review_id"]
     user_id = request.form["user_id"]
     restaurant_name = request.form["restaurant_name"]

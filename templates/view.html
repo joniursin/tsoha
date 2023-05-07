@@ -16,6 +16,7 @@ Tykkäykset: {{ get_likes(review.id) }}
     <input type="hidden" name="user_id" value="{{ user_id }}" />
     <input type="hidden" name="restaurant_name" value="{{ restaurant.name }}" />
     <input type="submit" value="Tykkää arvostelusta">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% else %}
 <form action="/remove_like" method="POST">
@@ -23,6 +24,7 @@ Tykkäykset: {{ get_likes(review.id) }}
     <input type="hidden" name="user_id" value="{{ user_id }}" />
     <input type="hidden" name="restaurant_name" value="{{ restaurant.name }}" />
     <input type="submit" value="Poista tykkäys">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% endif %}
     {% if op_status %}
