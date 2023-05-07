@@ -2,13 +2,14 @@
 {% block content %}
 <div class="container">
 {% if session.username %}
-<p>Olet kirjautunut nimellä: {{ session.username }}</p>
-Ravintoloiden määrä: {{ count }}
+<p>Olet kirjautunut käyttäjänimellä: "{{ session.username }}"</p>
+Ravintoloiden määrä sovelluksessa: {{ count }}
 <hr>
 {% if admin_status() %}
+<a href="/new_group">Luo uusi ryhmä</a> |
 <a href="/new_restaurant">Lisää uusi ravintola</a>
-{% endif %}
 <hr>
+{% endif %}
 {% for restaurant in restaurants %}
 {{ restaurant.name }} <br>
 <a href="/review/{{ restaurant.id }}">Jätä arvostelu</a> |
