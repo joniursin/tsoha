@@ -19,14 +19,14 @@ Sovelluksella voidaan, joko etsiä hakusanalla tai tarkastella kartasta lähell�
 - Sovellukseen voidaan luoda tunnus, jonka avulla siihen voidaan kirjautua sisään
 - On myös mahdollista kirjautua ylläpitäjä käyttäjällä, joka mahdollistaa enemmän ominaisuuksia kuin perus käyttäjällä
 
-## Käyttäminen (perus käyttäjä)
+### Käyttäminen (perus käyttäjä)
 
 - Käyttäjä näkee kaikki tietokantaa lisätyt ravintolat ja voi antaa niille joko arvostelun tai katsoa kaikki ravintolan arvostelut
 - Käyttäjä voi tykätä jokaisesta arvostelusta kerran, jolloin se nousee tykkäysten perusteella ylemmäksi
 - Käyttäjä voi myös poistaa tykkäyksensä
 - Käyttäjä voi myös katsoa ylläpitäjän tekemiä ravintola ryhmiä ja katsoa mitkä ravintolat niihin kuuluu
 
-## Ylläpitäjä oiminaisuudet
+### Ylläpitäjä oiminaisuudet
 
 - Ylläpitäjä voi lisätä sovelluksesta uusia ravintoloita, sekä tehdä näistä ryhmiä
 - Ylläpitäjä voi poistaa ravintoloita, jolloin ne eivät näe sovelluksessa.
@@ -42,19 +42,29 @@ SECRET_KEY=salainen-avain
 
 ## Aktivoi seuraavaksi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komeinnoilla:
 
+```bash
 $ python3 -m venv venv
-  
+```
+
+```bash
 $ source venv/bin/activate
-  
+```
+
+```bash
 $ pip install -r ./requirements.txt
+```
 
 ## Määritä tietokannan skeema komenolla:
 
+```bash
 $ psql < schema.sql
+```
 
 ## Sovelluksen saa käynnistetty komennolla:
 
+```bash
 $ flask run
+```
 
 # Testaaminen
 
