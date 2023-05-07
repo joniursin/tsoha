@@ -27,7 +27,7 @@ import group
 
 @app.route("/")
 def index():
-    sql = "SELECT id, name FROM restaurants"
+    sql = "SELECT id, name FROM restaurants WHERE visible=true"
     result = db.session.execute(text(sql))
     restaurants = result.fetchall()
     return render_template("index.html", count=len(restaurants), restaurants=restaurants, admin_status=admin_status)
@@ -76,10 +76,24 @@ def view(id):
     return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=user[1], user_id=user[0], has_liked=like.has_liked, get_likes=like.get_likes)
     #return render_template("view.html", reviews=reviews, restaurant=restaurant, op_status=True) #debug
 
-@app.route("/remove", methods=["POST"])
-def remove():
+@app.route("/remove_review", methods=["POST"])
+def remove_review():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     id = request.form["id"]
     sql = "UPDATE reviews SET visible = false WHERE id=:id"
+    db.session.execute(text(sql), {"id":id})
+    db.session.commit()
+
+    return redirect("/")
+
+@app.route("/remove_restaurant", methods=["POST"])
+def remove_restaurant():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    print("test")
+    id = request.form["id"]
+    sql = "UPDATE restaurants SET visible = false WHERE id=:id"
     db.session.execute(text(sql), {"id":id})
     db.session.commit()
 
@@ -97,7 +111,7 @@ def add_restaurant():
     if name == "":
         return render_template("error.html", error="Nimeä ravintolalle ei annettu!")
     
-    sql = "INSERT INTO restaurants (name) VALUES (:name)"
+    sql = "INSERT INTO restaurants (name, visible) VALUES (:name, true)"
     db.session.execute(text(sql), {"name":name})
     db.session.commit()
     return redirect("/")

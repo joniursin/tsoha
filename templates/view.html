@@ -26,9 +26,10 @@ Tykkäykset: {{ get_likes(review.id) }}
 </form>
 {% endif %}
     {% if op_status %}
-    <form action="/remove" method="POST">
+    <form action="/remove_review" method="POST">
         <input type="hidden" name="id" value="{{ review.id }}" />
         <input type="submit" value="Poista arvostelu">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
     {% endif %}
 <hr>

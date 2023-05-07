@@ -17,7 +17,14 @@ Ravintolat:
 {% for restaurant in restaurants %}
     {{ restaurant.name }} <br>
     <a href="/review/{{ restaurant.id }}">Jätä arvostelu</a> |
-    <a href="/view/{{ restaurant.id }}">Katso arvostelut</a>
+    <a href="/view/{{ restaurant.id }}">Katso arvostelut</a> <br>
+    {% if admin_status() %}
+    <form action="/remove_restaurant" method="POST">
+        <input type="hidden" name="id" value="{{ restaurant.id }}" />
+        <input type="submit" value="Poista ravintola">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+    {% endif %}
     <hr>
 {% endfor %}
 <a href="/logout">Kirjaudu ulos</a>
