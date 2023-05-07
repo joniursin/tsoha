@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
+    <h4>Ryhmän "{{ group_name }}" ravintolat:</h4>
     {% for restaurant in restaurants %}
     {{ restaurant.name }} <br>
     <a href="/review/{{ restaurant.id }}">Jätä arvostelu</a> |

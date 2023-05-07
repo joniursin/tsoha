@@ -40,11 +40,11 @@ def groups():
 
 @app.route("/view_group/<int:id>")
 def view_group(id):
-    # CREATE TABLE group_members (id SERIAL PRIMARY KEY, group_id INTEGER REFERENCES groups, 
-    # restaurant_id INTEGER REFERENCES restaurants);
+    sql = "SELECT group_name FROM groups WHERE id=:id"
+    result = db.session.execute(text(sql), {"id":id})
+    group_name = result.fetchone()[0]
 
     sql = "SELECT r.id, r.name FROM group_members g JOIN restaurants r ON g.restaurant_id=r.id WHERE group_id=:id"
     result = db.session.execute(text(sql), {"id":id})
     restaurants = result.fetchall()
-    print(restaurants)
-    return render_template("view-group.html", id=id, restaurants=restaurants)
+    return render_template("view-group.html", id=id, restaurants=restaurants, group_name=group_name)
