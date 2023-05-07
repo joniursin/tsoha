@@ -1,8 +1,6 @@
-from app import app, db, admin_status
-from flask import Flask
 from flask import redirect, render_template, request, session, abort
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
+from app import app, db, admin_status
 
 @app.route("/new_group")
 def new_group():
@@ -18,8 +16,11 @@ def add_group():
     group_name = request.form["name"]
     if group_name == "":
         return render_template("error.html", error="Nimeä ryhmälle ei annettu!")
-    
+
     chosen_restaurants = request.form.getlist("restaurant_id")
+
+    if not chosen_restaurants:
+        return render_template("error.html", error="Valitse ainakin yksi ravintola ryhmään!")
 
     sql = "INSERT INTO groups (group_name) VALUES (:group_name) RETURNING id"
     group_id = db.session.execute(text(sql), {"group_name":group_name}).fetchone()[0]
