@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h4>Ravintolasovelluksen ryhmät</h4>
+    {% if not groups %}
+        Ei yhtään ryhmää vielä <br>
+    {% else %}
+        {% for group in groups %}
+            {{ group.group_name }} <br>
+            <a href="/view_group/{{ group.id }}">Katso ryhmän ravintolat</a>
+            <hr>
+        {% endfor %}
+    {% endif %}
+    <a href="/">Takaisin etusivulle</a>
+</div>
+{% endblock %}
